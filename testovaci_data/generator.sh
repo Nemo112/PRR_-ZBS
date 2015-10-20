@@ -1,9 +1,9 @@
 #!/bin/bash
 
-n=4;
+n=60;
 t="AD";
 
-while [[ $n -lt 20 ]];do
+while [[ $n -lt 100 ]];do
 	k=3
 	while [[ $k -lt $(($n-1)) ]];do
 		./generator -t $t -n $n -k $k -o "test"$n"x"$k".txt";

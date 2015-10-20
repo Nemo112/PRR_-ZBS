@@ -33,7 +33,7 @@ int cntTrans (string line){
     return cnl;
 }
 CndCas * countMatr(string * matrix,unsigned int linc, set <unsigned int> * str, unsigned int cnr = 0, int deep = 0){
-    cout << "picked" << linc + 1 << " deep " << deep << " " << matrix[linc] << endl; // jen pro debug
+    //cout << "picked" << linc + 1 << " deep " << deep << " " << matrix[linc] << endl; // jen pro debug
     int mnl = INT_MAX; // proměnná pro stanovaní minima mezi přechody
     int whl = linc; // označení vrcholu
     for(unsigned int k=0;k<matrix[linc].length();k++){ // hledá se přechod do stavu, který má nejméně přechodů do dalších stavů
@@ -53,12 +53,12 @@ CndCas * countMatr(string * matrix,unsigned int linc, set <unsigned int> * str, 
     //sleep(1); // jen pro debug
     if (deep + 1 == a){ // výpočet se vstupním a, tedy dokud nejsou aspoň a stavy v množině, hledá dál
         CndCas * rtp = new CndCas(cnr, str); // jinak vytvoří výstupní třídu a končí
-        set<unsigned int>::iterator iter;
-        iter=str->begin();
-        while (iter != str->end()){
-            cout << *iter+1 << endl;
-            iter++;
-        }
+        //set<unsigned int>::iterator iter;
+        //iter=str->begin();
+        //while (iter != str->end()){
+        //    cout << *iter+1 << endl;
+        //    iter++;
+        //}
         return rtp;
     }else{
         str->insert(whl); // přihodí vybraný vrchol do množiny, aby se k němu už nevracel
@@ -110,7 +110,7 @@ int main(int argc, char **argv){
     // Výpočet
     CndCas winner(-1, NULL); // struktura, do který se uloží vítěz
     for(unsigned int j=0;j<stc;j++){ // pro každý vrchol otestuje, jeslti není v nejměnší komponentě
-        cout << "==========" << endl;
+        //cout << "==========" << endl; // pro debug
         set <unsigned int> * str = new set<unsigned int>; // pro každý vrchol se vytvoří nová množina
         str->insert(j); // a strčí se do ní vrchol, kterým se začíná
         CndCas * cnas = countMatr(matrix, j, str); // pošle se do výpočtu matici přechodů; vrchol u kterého začal; množinu pro už prochozené stavy
