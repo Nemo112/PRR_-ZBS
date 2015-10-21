@@ -70,27 +70,31 @@ unsigned int a = 0; // načítá se z řádky
 Stck wrkStc; // globální definice stacku, do kterýho se hází práce
 //================
 
-void gena(set <unsigned int> * str,unsigned int i,unsigned int stc){
+void gena(set <unsigned int> * str,unsigned int i,unsigned int stc,string * matrix){
     if (str->size() == a){ // pokud je velikosti množiny a, tak jej přidá na zásobník
         wrkStc.push(str); // a-tici nakopíruje do zásobníku na práci
         return; // vygenerovaná a-tice, vrací se
     }else
     for(unsigned int j=i+1;j<stc;j++){ // přidá další hrany větší, než vstupní hrana
-        str->insert(j); // přidá další hranu
-        gena(str,j,stc); // pošle rekurzivně s novou hranou
-        str->erase(j); // odejme přidanou hranu, aby mohl přidat další, větší
+        // přidá jen hranu, na kterou může přejít
+        if (matrix[i][j] == '1'){
+            str->insert(j); // přidá další hranu
+            gena(str,j,stc,matrix); // pošle rekurzivně s novou hranou
+            str->erase(j); // odejme přidanou hranu, aby mohl přidat další, větší
+        }
     }
 }
 
-void genAComp(unsigned int stc){ // pro každý vrchol vygeneruje množinu |a| vrcholů
+void genAComp(unsigned int stc,string * matrix){ // pro každý vrchol vygeneruje množinu |a| vrcholů
     for(unsigned int i=0;i<stc;i++){
         set <unsigned int> * str = new set<unsigned int>;
         str->insert(i); // přidá první vrchol do množiny
-        gena(str,i,stc); // přidá další vrcholy do velikosti |a|
+        gena(str,i,stc,matrix); // přidá další vrcholy do velikosti |a|
     }
 }
 
 // tahle funkce není vůbec potřeba pokud bych generoval kombinace v komponentách trochu normálně
+// respektive je potřeba u komponenty Y
 bool testRel(set <unsigned int> * stx, string * matrix, unsigned int stc){ // testuje, jestli je komponenta spojitá
     set<unsigned int> tms = *stx; // udělá deep copy množiny komponenty
     set<unsigned int>::iterator iter = stx->begin(); // iteruje přes původní množinu
@@ -125,7 +129,9 @@ void redStack(unsigned int stc, string * matrix){
         }
         // ověří souvislot
         // !!!! což by tu vůbec nemuselo být, jen u komponenty Y !!!!
-        if (testRel(&sty,matrix,stc) && testRel(&stx,matrix,stc)){
+        //if (testRel(&sty,matrix,stc) && testRel(&stx,matrix,stc)){
+        // kontrola pouze Y, protože X je komponenta už od vygenerování
+        if (testRel(&sty,matrix,stc)){
             // spočte počet vazeb mezi komponenty
             unsigned int relCnt = 0;
             iter=stx.begin();
@@ -203,7 +209,7 @@ int main(int argc, char **argv){
         cout << matrix[j] << endl;
     }
     // generování práce do zásobníku
-    genAComp(stc);
+    genAComp(stc,matrix);
     // práce nad zásobníkem
     redStack(stc,matrix);
     // vyčištění
