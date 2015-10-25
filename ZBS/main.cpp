@@ -75,6 +75,7 @@ int main(int argc, char **argv){
     fp = fopen(argv[argc-1],"r");
     if (fp == NULL){
          cout << "File doesn't exists" << endl;
+         cout << argv[argc-2] << endl;
          return 1;
     }
     // read variables

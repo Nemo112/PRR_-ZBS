@@ -39,7 +39,7 @@ public:
     }
     void push(set <unsigned int> * stri){ // narve do zásobníku množinu vrcholů komponenty
         item * nwi = new item;
-        nwi->str = *stri;
+        nwi->str = *stri; // tohle provede hlubokou kopii
         if (head){
             head->bck = nwi;
             nwi->nxt = head;
@@ -90,6 +90,7 @@ void genAComp(unsigned int stc,string * matrix){ // pro každý vrchol vygeneruj
         set <unsigned int> * str = new set<unsigned int>;
         str->insert(i); // přidá první vrchol do množiny
         gena(str,i,stc,matrix); // přidá další vrcholy do velikosti |a|
+        delete str; // množina se nakopírovala pro vložení na zásobník, může se smazat
     }
 }
 
@@ -163,7 +164,6 @@ void redStack(unsigned int stc, string * matrix){
         cout << *iter+1 << endl;
         iter++;
     }
-
 }
 
 int main(int argc, char **argv){
@@ -176,6 +176,7 @@ int main(int argc, char **argv){
     fp = fopen(argv[argc-2],"r");
     if (fp == NULL){
          cout << "File doesn't exists" << endl;
+         cout << argv[argc-2] << endl;
          return 1;
     }
     a = atoi(argv[argc-1]); // Načtení a
