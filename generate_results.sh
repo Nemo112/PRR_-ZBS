@@ -4,11 +4,11 @@ arrl=`ls ZBS*/main`;
 tsar=`ls testovaci_data/*.txt`;
 #for i in ${arrl[@]};do
 	i="./ZBS_var/main";
-	a=3;
+	a=8;
 	while [[ $a -lt 20 ]];do
 		for j in ${tsar[@]};do
 			k=0;
-			while [[ k -lt 4 ]];do
+			while [[ k -lt 3 ]];do
 				eval "./$i $ptht\"/\"$j $a" > outputs/`echo $j | cut -d'/' -f 2 | cut -d. -f 1`_$a.txt &
 				k=$(($k+1));
 			done;
