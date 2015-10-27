@@ -5,9 +5,14 @@
 01100
 X
 1
-2
-5
-relation count: 4
-Y
 3
 4
+relation count: 3
+Y
+2
+5
+=============================
+
+real	0m0.003s
+user	0m0.000s
+sys	0m0.002s
