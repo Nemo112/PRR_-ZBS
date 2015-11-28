@@ -4,7 +4,7 @@ arrl=`ls ZBS*/main`;
 tsar=`ls testovaci_data/*.txt`;
 #for i in ${arrl[@]};do
 	# i="./ZBS_var/main";
-	a=3;
+	a=10;
 	while [[ $a -lt 20 ]];do
 		for j in ${tsar[@]};do
 			k=0;
