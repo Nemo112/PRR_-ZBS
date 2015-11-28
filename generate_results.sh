@@ -8,9 +8,12 @@ tsar=`ls testovaci_data/*.txt`;
 	while [[ $a -lt 20 ]];do
 		for j in ${tsar[@]};do
 			k=0;
-			while [[ k -lt 4 ]];do
+			while [[ k -lt 2 ]];do
 				if [[ ! -f outputs/`echo $j | cut -d'/' -f 2 | cut -d. -f 1`_$a.txt ]];then
-					(time ./ZBS_final/main $ptht/$j $a) |& tee outputs/`echo $j | cut -d'/' -f 2 | cut -d. -f 1`_$a.txt 1>/dev/null &
+					{
+						(time ./ZBS_final/main $ptht/$j $a) |& tee outputs/`echo $j | cut -d'/' -f 2 | cut -d. -f 1`_$a.txt 1>/dev/null;
+						echo outputs/`echo $j | cut -d'/' -f 2 | cut -d. -f 1`_$a.txt; 
+					} &
 				fi
 				k=$(($k+1));
 			done;
