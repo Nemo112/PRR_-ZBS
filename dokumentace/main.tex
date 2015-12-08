@@ -27,9 +27,9 @@
 \listoftables
 \newpage
 
-\section{Definici problému}
+\chapter{Definici problému}
 
-\subsection{Vstupní data}
+\section{Vstupní data}
 
 \begin{description}
 	\item[a] -- přirozené číslo,
@@ -39,19 +39,19 @@
 	\item[$G(V,E)$] -- jednoduchý souvislý neorientovaný neohodnocený graf o n uzlech a m hranách.
 \end{description}
 
-\subsection{Úkol}
+\section{Úkol}
 
 Naleznout rozdělení množiny n uzlů grafu G do dvou disjunktních podmnožin X a Y tak, že podmnožina X obsahuje a uzlů, podmnožina Y obsahuje $n-a$ uzlů $a$ počet všech hran $\{u,v\}$ takových, že u je z X a v je z Y, je minimální.
 
-\subsection{Výstup algoritmu}
+\section{Výstup algoritmu}
 
 Výpis disjuktních množin uzlů X a Y a počet hran tyto množiny spojující.
 
-\subsection{Popis vstupu}
+\section{Popis vstupu}
 
 Algoritmus dostává na vstup matici přechodů s číslem $a$. Matice je generována z aplikace \texttt{generator}, ta vytvoří matici na základě zadané elikosti a stupně grafu. Následně je na výsledek uplatněna aplikace \texttt{souvislost}, ta má za cíl z nesouvislého grafu vygenerovat souvislý graf.
 
-\section{Generování stavového prostoru}
+\chapter{Generování stavového prostoru}
 
 Pro vytvoření množin podgrafu je použita rekurzivní funkce, která vkládá stavy do zásobníku. Při generování prochází strom možných vrcholů spadajících do podgrafu X. Při vytvoření podmnožiny velikosti \texttt{a} vloží množinu na zásobník. Příklad pro $n=5$ a $a=4$ je na obrázku \ref{fig:com}.
 
@@ -81,7 +81,7 @@ $O(n) \simeq n^2$
 
 \hspace{1cm}
 
-\section{Popis sekvenčního algoritmu a jeho implementace}
+\chapter{Popis sekvenčního algoritmu a jeho implementace}
 
 Sekvenční algoritmus je typu \texttt{BB-DFS} (Branch-and-bound Depth-first search). Při hledání stavového prostoru hledáme nejmenší cenu řešení. Není možné žádné stavy vynechat. Počáteční cena je nastavena na nekonečno (přesněji \texttt{UINT\_MAX}).
 
@@ -113,7 +113,7 @@ $O(n)=n^{2} + {n\choose a} \cdot a$
 
 $n^2$ patří generování stavového prostoru a ${n\choose a}$ je počet kombinací v podmnožině X, pro které se hledá minimum vazeb mezi podmnožinami X a Y. Násobení $a$ představuje testování každého vrcholu, zdali míří do podmnožiny Y, či do X. 
 
-\section{Popis paralelního algoritmu a jeho implementace}
+\chapter{Popis paralelního algoritmu a jeho implementace}
 
 Paralelní algoritmus je typu \texttt{PBB-DFS-V}. To znamená, že každý proces ví, jaká je horní mez (při startu uložena v dolní mezi). Všechny procesy vyhodnotí nejlepší nejnižší výsledek ve svém výpočtu a nakonec jej mezi sebou sdílí. Na základě paralelní redukce se potom získá výsledek. Výpočet se ukončí pomocí \texttt{ADUV} (Algoritmus pro distribuované ukončení výpočtu).
 
@@ -185,7 +185,7 @@ $T(n,p)_{br} = \alpha \lceil \frac{n}{p} \rceil + \beta log_{2}p$-- binární re
 
 Celkově tedy $T(n,p) = (n/p)^2 + \frac{{n \choose a}}{p}\cdot a + log(p) + 2 \cdot p + \alpha \lceil \frac{n}{p} \rceil + \beta log_{2}$
 
-\section{Naměřené výsledky a vyhodnocení}
+\chapter{Naměřené výsledky a vyhodnocení}
 
 Pro měření byl vybrán graf o velikosti 60 vrcholů. Pro výpočet není důležité, abych byl graf řídký nebo hustý. Pro každou podmnožinu, kterých je ${n \choose a}$ se kontrolují všechny hrany. V následující tabulce [\ref{fig:spe}] jsou vyneseny rychlosti výpočtu v sekundách pro zvolenou podmnožinu grafu velikosti $a$.
 
@@ -257,7 +257,7 @@ Rozdíl mezi měřeními je dostatečný. Problém nastává pro malé časy vý
 
 Dle grafu je vidět, že se řešení blíží lineárnímu zrychlení. Je otázka, zdali doba výpočtu neklesá kvůli zatížení sítě či nějakému jinému technickému řešení.
 
-\section{Závěr}
+\chapter{Závěr}
 
 Je nutné zmínit, že jsme pro výpočet museli použít jen Ethernet. Maximální počet procesorů byl 24. Je otázka, zdali bychom při vypočtu narazili na maximum procesorů, které je možné použít. Teoreticky řešení může mít maximálně ${n \choose a}$ procesorů. Lepší detail by nám teoreticky prozradili izometrické funkce. Nicméně už s počtem procesorů 24 (pro námi zvolenou velikost problému) narážíme na praktické omezení.
 
